@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<title>Claude Weekly Usage — 2026-W17 (2026-04-20 ~ 2026-04-22)</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #0f1419; color: #e6edf3; margin: 0; padding: 32px; }
+h1 { margin: 0 0 6px; font-size: 26px; }
+.sub { color: #8b949e; margin-bottom: 24px; font-size: 14px; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+.stat { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; }
+.stat .label { font-size: 11px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat .value { font-size: 26px; font-weight: 600; margin-top: 4px; }
+.stat .sub-value { font-size: 12px; color: #8b949e; margin-top: 2px; }
+.gauge-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; margin-bottom: 16px; text-align: center; }
+.gauge-pct { font-size: 48px; font-weight: 700; color: #f85149; }
+.gauge-label { font-size: 16px; color: #f85149; margin-top: 4px; }
+.gauge-sub { color: #8b949e; font-size: 13px; margin-top: 8px; }
+.grid-2 { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; margin-bottom: 14px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 18px; }
+.card h2 { margin: 0 0 12px; font-size: 15px; font-weight: 600; }
+.footer { color: #6e7681; font-size: 12px; margin-top: 24px; text-align: center; }
+canvas { max-height: 280px; }
+</style></head><body>
+
+<h1>Claude Weekly Usage — 2026-W17 (2026-04-20 ~ 2026-04-22)</h1>
+<div class="sub">ISO 주 기준 · codeburn 로컬 데이터 · 생성 2026-04-22 09:30:13 UTC · 금액은 API 환산 (실제 Pro 구독 $20/월 flat)</div>
+
+<div class="stats">
+  <div class="stat"><div class="label">이번 주</div><div class="value">$71.66</div><div class="sub-value">580 calls · 21 sessions · 3 days</div></div>
+  <div class="stat"><div class="label">전주</div><div class="value">$6.70</div><div class="sub-value">52 calls</div></div>
+  <div class="stat"><div class="label">4주 평균</div><div class="value">$30.33</div><div class="sub-value">최근 4 주 평균</div></div>
+  <div class="stat"><div class="label">30일 합계</div><div class="value">$193.00</div><div class="sub-value">1351 calls</div></div>
+</div>
+
+<div class="gauge-card">
+  <div class="label" style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">평소 대비 (4주 평균 기준)</div>
+  <div class="gauge-pct">236%</div>
+  <div class="gauge-label">높음 ⚠️</div>
+  <div class="gauge-sub">Pro 주간 절대 한도는 claude.ai/settings 에서 확인 — 이 지표는 본인의 평소 패턴 대비 상대 비교</div>
+</div>
+
+<div class="grid-2">
+  <div class="card"><h2>주차별 비용 (최근 5 주)</h2><canvas id="weekChart"></canvas></div>
+  <div class="card"><h2>모델별 지출 (최근 30일)</h2><canvas id="modelChart"></canvas></div>
+</div>
+
+<div class="grid-3">
+  <div class="card"><h2>Activity 분포 (30일)</h2><canvas id="activityChart"></canvas></div>
+  <div class="card"><h2>주차별 API Calls</h2><canvas id="callsChart"></canvas></div>
+  <div class="card"><h2>주차별 세션 수</h2><canvas id="sessionChart"></canvas></div>
+</div>
+
+<div class="footer">$30 초과: 빨강 · $15-30: 주황 · 그 외: 파랑</div>
+
+<script>
+const weeks = [{"key":"2026-W13","cost":20.240000000000002,"calls":67,"sessions":4},{"key":"2026-W14","cost":59.71,"calls":429,"sessions":22},{"key":"2026-W15","cost":34.68,"calls":223,"sessions":11},{"key":"2026-W16","cost":6.7,"calls":52,"sessions":4},{"key":"2026-W17","cost":71.66000000000001,"calls":580,"sessions":21}];
+const models = [{"Period":"30 Days","Model":"Opus 4.6","Cost (USD)":125.39,"Share (%)":64.97,"API Calls":754,"Input Tokens":54871,"Output Tokens":228203,"Cache Read Tokens":74964360,"Cache Write Tokens":13107816},{"Period":"30 Days","Model":"Opus 4.7","Cost (USD)":66.45,"Share (%)":34.43,"API Calls":507,"Input Tokens":1607,"Output Tokens":527022,"Cache Read Tokens":60380474,"Cache Write Tokens":3692334},{"Period":"30 Days","Model":"Haiku 4.5","Cost (USD)":0.76,"Share (%)":0.39,"API Calls":62,"Input Tokens":1693,"Output Tokens":15092,"Cache Read Tokens":1415227,"Cache Write Tokens":431958},{"Period":"30 Days","Model":"Sonnet 4.6","Cost (USD)":0.4,"Share (%)":0.21,"API Calls":16,"Input Tokens":33,"Output Tokens":1782,"Cache Read Tokens":308609,"Cache Write Tokens":76023}];
+const activities = [{"Period":"30 Days","Activity":"Conversation","Cost (USD)":117.2,"Share (%)":60.72,"Turns":441},{"Period":"30 Days","Activity":"Coding","Cost (USD)":32.84,"Share (%)":17.02,"Turns":75},{"Period":"30 Days","Activity":"Exploration","Cost (USD)":25.42,"Share (%)":13.17,"Turns":72},{"Period":"30 Days","Activity":"Debugging","Cost (USD)":7.22,"Share (%)":3.74,"Turns":10},{"Period":"30 Days","Activity":"Brainstorming","Cost (USD)":3.5,"Share (%)":1.82,"Turns":10},{"Period":"30 Days","Activity":"Delegation","Cost (USD)":3.08,"Share (%)":1.59,"Turns":10},{"Period":"30 Days","Activity":"General","Cost (USD)":1.87,"Share (%)":0.97,"Turns":14},{"Period":"30 Days","Activity":"Feature Dev","Cost (USD)":1.42,"Share (%)":0.74,"Turns":5},{"Period":"30 Days","Activity":"Testing","Cost (USD)":0.45,"Share (%)":0.24,"Turns":2}];
+
+Chart.defaults.color = '#8b949e';
+Chart.defaults.borderColor = '#30363d';
+
+new Chart(document.getElementById('weekChart'), {
+  type: 'bar',
+  data: {
+    labels: weeks.map(w => w.key),
+    datasets: [{
+      label: 'Cost (USD)',
+      data: weeks.map(w => Number(w.cost.toFixed(2))),
+      backgroundColor: weeks.map(w => w.cost > 30 ? '#f85149' : w.cost > 15 ? '#d29922' : '#58a6ff'),
+      borderRadius: 4,
+    }]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { ticks: { callback: v => '$' + v } } } }
+});
+
+new Chart(document.getElementById('modelChart'), {
+  type: 'doughnut',
+  data: { labels: models.map(m => m.Model), datasets: [{ data: models.map(m => m['Cost (USD)']), backgroundColor: ['#bc8cff','#58a6ff','#3fb950','#d29922','#f85149'] }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
+});
+
+new Chart(document.getElementById('activityChart'), {
+  type: 'bar',
+  data: { labels: activities.map(a => a.Activity), datasets: [{ label: 'Cost (USD)', data: activities.map(a => a['Cost (USD)']), backgroundColor: '#58a6ff', borderRadius: 4 }] },
+  options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { callback: v => '$' + v } } } }
+});
+
+new Chart(document.getElementById('callsChart'), {
+  type: 'line',
+  data: { labels: weeks.map(w => w.key), datasets: [{ label: 'Calls', data: weeks.map(w => w.calls), borderColor: '#3fb950', backgroundColor: 'rgba(63,185,80,0.1)', fill: true, tension: 0.3 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+});
+
+new Chart(document.getElementById('sessionChart'), {
+  type: 'line',
+  data: { labels: weeks.map(w => w.key), datasets: [{ label: 'Sessions', data: weeks.map(w => w.sessions), borderColor: '#bc8cff', backgroundColor: 'rgba(188,140,255,0.1)', fill: true, tension: 0.3 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+});
+</script>
+</body></html>
