@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko"><head><meta charset="UTF-8">
-<title>Claude Weekly Usage — 2026-W17 (2026-04-20 ~ 2026-04-22)</title>
+<title>Claude Weekly Usage — 2026-W17 (2026-04-20 ~ 2026-04-24)</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #0f1419; color: #e6edf3; margin: 0; padding: 32px; }
@@ -23,25 +23,25 @@ h1 { margin: 0 0 6px; font-size: 26px; }
 canvas { max-height: 280px; }
 </style></head><body>
 
-<h1>Claude Weekly Usage — 2026-W17 (2026-04-20 ~ 2026-04-22)</h1>
-<div class="sub">ISO 주 기준 · codeburn 로컬 데이터 · 생성 2026-04-22 09:34:51 UTC · 금액은 API 환산 (실제 Pro 구독 $20/월 flat)</div>
+<h1>Claude Weekly Usage — 2026-W17 (2026-04-20 ~ 2026-04-24)</h1>
+<div class="sub">ISO 주 기준 · codeburn 로컬 데이터 · 생성 2026-04-27 05:07:04 UTC · 금액은 API 환산 (실제 Pro 구독 $20/월 flat)</div>
 
 <div class="stats">
-  <div class="stat"><div class="label">이번 주</div><div class="value">$72.82</div><div class="sub-value">589 calls · 21 sessions · 3 days</div></div>
+  <div class="stat"><div class="label">이번 주</div><div class="value">$247.49</div><div class="sub-value">1453 calls · 30 sessions · 5 days</div></div>
   <div class="stat"><div class="label">전주</div><div class="value">$6.70</div><div class="sub-value">52 calls</div></div>
-  <div class="stat"><div class="label">4주 평균</div><div class="value">$30.33</div><div class="sub-value">최근 4 주 평균</div></div>
-  <div class="stat"><div class="label">30일 합계</div><div class="value">$194.16</div><div class="sub-value">1360 calls</div></div>
+  <div class="stat"><div class="label">4주 평균</div><div class="value">$33.70</div><div class="sub-value">최근 3 주 평균</div></div>
+  <div class="stat"><div class="label">30일 합계</div><div class="value">$348.58</div><div class="sub-value">2157 calls</div></div>
 </div>
 
 <div class="gauge-card">
   <div class="label" style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">평소 대비 (4주 평균 기준)</div>
-  <div class="gauge-pct">240%</div>
+  <div class="gauge-pct">734%</div>
   <div class="gauge-label">높음 ⚠️</div>
   <div class="gauge-sub">Pro 주간 절대 한도는 claude.ai/settings 에서 확인 — 이 지표는 본인의 평소 패턴 대비 상대 비교</div>
 </div>
 
 <div class="grid-2">
-  <div class="card"><h2>주차별 비용 (최근 5 주)</h2><canvas id="weekChart"></canvas></div>
+  <div class="card"><h2>주차별 비용 (최근 4 주)</h2><canvas id="weekChart"></canvas></div>
   <div class="card"><h2>모델별 지출 (최근 30일)</h2><canvas id="modelChart"></canvas></div>
 </div>
 
@@ -54,9 +54,9 @@ canvas { max-height: 280px; }
 <div class="footer">$30 초과: 빨강 · $15-30: 주황 · 그 외: 파랑</div>
 
 <script>
-const weeks = [{"key":"2026-W13","cost":20.240000000000002,"calls":67,"sessions":4},{"key":"2026-W14","cost":59.71,"calls":429,"sessions":22},{"key":"2026-W15","cost":34.68,"calls":223,"sessions":11},{"key":"2026-W16","cost":6.7,"calls":52,"sessions":4},{"key":"2026-W17","cost":72.82000000000001,"calls":589,"sessions":21}];
-const models = [{"Period":"30 Days","Model":"Opus 4.6","Cost (USD)":125.39,"Share (%)":64.58,"API Calls":754,"Input Tokens":54871,"Output Tokens":228203,"Cache Read Tokens":74964360,"Cache Write Tokens":13107816},{"Period":"30 Days","Model":"Opus 4.7","Cost (USD)":67.61,"Share (%)":34.82,"API Calls":516,"Input Tokens":1631,"Output Tokens":539638,"Cache Read Tokens":61859054,"Cache Write Tokens":3708766},{"Period":"30 Days","Model":"Haiku 4.5","Cost (USD)":0.76,"Share (%)":0.39,"API Calls":62,"Input Tokens":1693,"Output Tokens":15092,"Cache Read Tokens":1415227,"Cache Write Tokens":431958},{"Period":"30 Days","Model":"Sonnet 4.6","Cost (USD)":0.4,"Share (%)":0.21,"API Calls":16,"Input Tokens":33,"Output Tokens":1782,"Cache Read Tokens":308609,"Cache Write Tokens":76023}];
-const activities = [{"Period":"30 Days","Activity":"Conversation","Cost (USD)":116.8,"Share (%)":60.16,"Turns":442},{"Period":"30 Days","Activity":"Coding","Cost (USD)":34.28,"Share (%)":17.66,"Turns":76},{"Period":"30 Days","Activity":"Exploration","Cost (USD)":25.42,"Share (%)":13.09,"Turns":72},{"Period":"30 Days","Activity":"Debugging","Cost (USD)":7.22,"Share (%)":3.72,"Turns":10},{"Period":"30 Days","Activity":"Brainstorming","Cost (USD)":3.62,"Share (%)":1.86,"Turns":11},{"Period":"30 Days","Activity":"Delegation","Cost (USD)":3.08,"Share (%)":1.58,"Turns":10},{"Period":"30 Days","Activity":"General","Cost (USD)":1.87,"Share (%)":0.96,"Turns":14},{"Period":"30 Days","Activity":"Feature Dev","Cost (USD)":1.42,"Share (%)":0.73,"Turns":5},{"Period":"30 Days","Activity":"Testing","Cost (USD)":0.45,"Share (%)":0.23,"Turns":2}];
+const weeks = [{"key":"2026-W14","cost":59.71,"calls":429,"sessions":22},{"key":"2026-W15","cost":34.68,"calls":223,"sessions":11},{"key":"2026-W16","cost":6.7,"calls":52,"sessions":4},{"key":"2026-W17","cost":247.49,"calls":1453,"sessions":30}];
+const models = [{"Period":"30 Days","Model":"Opus 4.7","Cost (USD)":238.27,"Share (%)":68.35,"API Calls":1327,"Input Tokens":3068,"Output Tokens":1537237,"Cache Read Tokens":294614641,"Cache Write Tokens":8402613},{"Period":"30 Days","Model":"Opus 4.6","Cost (USD)":105.23,"Share (%)":30.19,"API Calls":692,"Input Tokens":54722,"Output Tokens":215909,"Cache Read Tokens":71501519,"Cache Write Tokens":10209263},{"Period":"30 Days","Model":"Sonnet 4.6","Cost (USD)":4.32,"Share (%)":1.24,"API Calls":66,"Input Tokens":1167,"Output Tokens":107546,"Cache Read Tokens":4437379,"Cache Write Tokens":366127},{"Period":"30 Days","Model":"Haiku 4.5","Cost (USD)":0.76,"Share (%)":0.22,"API Calls":62,"Input Tokens":1693,"Output Tokens":15092,"Cache Read Tokens":1415227,"Cache Write Tokens":431958}];
+const activities = [{"Period":"30 Days","Activity":"Coding","Cost (USD)":164.7,"Share (%)":47.25,"Turns":111},{"Period":"30 Days","Activity":"Conversation","Cost (USD)":124.29,"Share (%)":35.65,"Turns":490},{"Period":"30 Days","Activity":"Exploration","Cost (USD)":39.12,"Share (%)":11.22,"Turns":92},{"Period":"30 Days","Activity":"Debugging","Cost (USD)":8.43,"Share (%)":2.42,"Turns":13},{"Period":"30 Days","Activity":"Brainstorming","Cost (USD)":3.63,"Share (%)":1.04,"Turns":11},{"Period":"30 Days","Activity":"Delegation","Cost (USD)":3.08,"Share (%)":0.88,"Turns":10},{"Period":"30 Days","Activity":"General","Cost (USD)":1.87,"Share (%)":0.54,"Turns":14},{"Period":"30 Days","Activity":"Refactoring","Cost (USD)":1.47,"Share (%)":0.42,"Turns":1},{"Period":"30 Days","Activity":"Feature Dev","Cost (USD)":1.42,"Share (%)":0.41,"Turns":5},{"Period":"30 Days","Activity":"Planning","Cost (USD)":0.44,"Share (%)":0.12,"Turns":1},{"Period":"30 Days","Activity":"Testing","Cost (USD)":0.13,"Share (%)":0.04,"Turns":1}];
 
 Chart.defaults.color = '#8b949e';
 Chart.defaults.borderColor = '#30363d';
