@@ -1,20 +1,5 @@
-/* daily briefing common style — dark dashboard + NEXON Lv1 Gothic */
-
-@font-face {
-  font-family: 'NEXON Lv1 Gothic';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2102-2@1.1/NEXONLv1Gothic.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'NEXON Lv1 Gothic';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2102-2@1.1/NEXONLv1GothicBold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
+/* daily briefing common style — dark dashboard + NEXON Lv2 Gothic
+   wiki frame `frames/html_report.md` 와 폰트 일관성 유지. 테마는 brief 변종(다크). */
 
 :root {
   --bg: #0f1419;
@@ -29,7 +14,7 @@
   --accent-yellow: #d29922;
   --accent-purple: #bc8cff;
   --code-bg: #1e2329;
-  font-family: 'NEXON Lv1 Gothic', 'Pretendard', -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  font-family: 'NEXON Lv2 Gothic OTF', 'NEXON Lv2 Gothic', 'Malgun Gothic', -apple-system, 'Segoe UI', sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -39,7 +24,7 @@ html, body {
   padding: 0;
   background: var(--bg);
   color: var(--fg);
-  font-family: 'NEXON Lv1 Gothic', 'Pretendard', -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  font-family: 'NEXON Lv2 Gothic OTF', 'NEXON Lv2 Gothic', 'Malgun Gothic', -apple-system, 'Segoe UI', sans-serif;
   font-size: 15px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -303,6 +288,34 @@ footer.briefing-foot {
   text-decoration: none;
 }
 .report-link:hover { text-decoration: underline; }
+
+.chart-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin-bottom: 18px;
+}
+.chart-card h3 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: var(--fg-muted);
+}
+.chart-card canvas {
+  max-height: 240px;
+}
+
+.version-pill {
+  display: inline-block;
+  padding: 3px 10px;
+  background: rgba(63, 185, 80, 0.12);
+  border: 1px solid rgba(63, 185, 80, 0.3);
+  color: var(--accent-green);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', 'Cascadia Code', Consolas, monospace;
+}
 
 /* navigation pills at top */
 .section-nav {
