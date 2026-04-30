@@ -2,23 +2,8 @@
 <html lang="ko"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Claude Code 신규 패치 — 2026-04-30</title>
-<style>/* daily briefing common style — dark dashboard + NEXON Lv1 Gothic */
-
-@font-face {
-  font-family: 'NEXON Lv1 Gothic';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2102-2@1.1/NEXONLv1Gothic.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'NEXON Lv1 Gothic';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2102-2@1.1/NEXONLv1GothicBold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
+<style>/* daily briefing common style — dark dashboard + NEXON Lv2 Gothic
+   wiki frame `frames/html_report.md` 와 폰트 일관성 유지. 테마는 brief 변종(다크). */
 
 :root {
   --bg: #0f1419;
@@ -33,7 +18,7 @@
   --accent-yellow: #d29922;
   --accent-purple: #bc8cff;
   --code-bg: #1e2329;
-  font-family: 'NEXON Lv1 Gothic', 'Pretendard', -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  font-family: 'NEXON Lv2 Gothic OTF', 'NEXON Lv2 Gothic', 'Malgun Gothic', -apple-system, 'Segoe UI', sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -43,7 +28,7 @@ html, body {
   padding: 0;
   background: var(--bg);
   color: var(--fg);
-  font-family: 'NEXON Lv1 Gothic', 'Pretendard', -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  font-family: 'NEXON Lv2 Gothic OTF', 'NEXON Lv2 Gothic', 'Malgun Gothic', -apple-system, 'Segoe UI', sans-serif;
   font-size: 15px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -238,6 +223,123 @@ footer.briefing-foot {
   text-align: center;
   color: var(--fg-dim);
   font-size: 12px;
+}
+
+/* ───── usage section (briefing-usage) ───── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.stat {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+.stat .label {
+  font-size: 11px;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.stat .value {
+  font-size: 22px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+.stat .sub-value {
+  font-size: 11px;
+  color: var(--fg-muted);
+  margin-top: 2px;
+}
+.gauge-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px;
+  margin-bottom: 18px;
+  text-align: center;
+}
+.gauge-pct {
+  font-size: 40px;
+  font-weight: 700;
+}
+.gauge-pct.high, .gauge-label.high { color: var(--accent-red); }
+.gauge-pct.elevated, .gauge-label.elevated { color: var(--accent-yellow); }
+.gauge-pct.normal, .gauge-label.normal { color: var(--accent-blue); }
+.gauge-pct.reduced, .gauge-label.reduced { color: var(--accent-green); }
+.gauge-pct.baseline, .gauge-label.baseline { color: var(--fg-muted); }
+.gauge-label {
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+.gauge-sub {
+  color: var(--fg-muted);
+  font-size: 12px;
+  margin-top: 8px;
+}
+.report-link {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 4px;
+  background: rgba(88, 166, 255, 0.1);
+  border: 1px solid rgba(88, 166, 255, 0.3);
+  text-decoration: none;
+}
+.report-link:hover { text-decoration: underline; }
+
+.chart-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin-bottom: 18px;
+}
+.chart-card h3 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: var(--fg-muted);
+}
+.chart-card canvas {
+  max-height: 240px;
+}
+
+.version-pill {
+  display: inline-block;
+  padding: 3px 10px;
+  background: rgba(63, 185, 80, 0.12);
+  border: 1px solid rgba(63, 185, 80, 0.3);
+  color: var(--accent-green);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', 'Cascadia Code', Consolas, monospace;
+}
+
+/* navigation pills at top */
+.section-nav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.section-nav a {
+  padding: 6px 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--fg);
+  text-decoration: none;
+}
+.section-nav a:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
 }</style>
 </head><body>
 <div class="container">
@@ -251,6 +353,6 @@ footer.briefing-foot {
     <p style="color:var(--fg-muted);">지난 24시간 내 새 패치 없음.</p>
   </div>
 </section>
-<footer class="briefing-foot">생성: 2026-04-30T14:11:27+04:00 · routine: claude-code-changelog-daily</footer>
+<footer class="briefing-foot">생성: 2026-04-30T14:25:29+04:00 · routine: claude-code-changelog-daily</footer>
 </div>
 </body></html>
