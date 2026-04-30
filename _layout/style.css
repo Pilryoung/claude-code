@@ -235,3 +235,92 @@ footer.briefing-foot {
   color: var(--fg-dim);
   font-size: 12px;
 }
+
+/* ───── usage section (briefing-usage) ───── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.stat {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+.stat .label {
+  font-size: 11px;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.stat .value {
+  font-size: 22px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+.stat .sub-value {
+  font-size: 11px;
+  color: var(--fg-muted);
+  margin-top: 2px;
+}
+.gauge-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px;
+  margin-bottom: 18px;
+  text-align: center;
+}
+.gauge-pct {
+  font-size: 40px;
+  font-weight: 700;
+}
+.gauge-pct.high, .gauge-label.high { color: var(--accent-red); }
+.gauge-pct.elevated, .gauge-label.elevated { color: var(--accent-yellow); }
+.gauge-pct.normal, .gauge-label.normal { color: var(--accent-blue); }
+.gauge-pct.reduced, .gauge-label.reduced { color: var(--accent-green); }
+.gauge-pct.baseline, .gauge-label.baseline { color: var(--fg-muted); }
+.gauge-label {
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+.gauge-sub {
+  color: var(--fg-muted);
+  font-size: 12px;
+  margin-top: 8px;
+}
+.report-link {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 4px;
+  background: rgba(88, 166, 255, 0.1);
+  border: 1px solid rgba(88, 166, 255, 0.3);
+  text-decoration: none;
+}
+.report-link:hover { text-decoration: underline; }
+
+/* navigation pills at top */
+.section-nav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.section-nav a {
+  padding: 6px 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--fg);
+  text-decoration: none;
+}
+.section-nav a:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+}
