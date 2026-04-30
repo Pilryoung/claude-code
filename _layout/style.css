@@ -31,9 +31,9 @@ html, body {
 }
 
 .container {
-  max-width: 920px;
+  max-width: 1240px;
   margin: 0 auto;
-  padding: 40px 28px 60px;
+  padding: 40px 32px 60px;
 }
 
 header.briefing-head {
