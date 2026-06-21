@@ -150,6 +150,7 @@ h3 {
 .badge.hn { background: rgba(255, 102, 0, 0.12); border-color: rgba(255, 102, 0, 0.3); color: #ff8847; }
 .badge.gh { background: rgba(63, 185, 80, 0.12); border-color: rgba(63, 185, 80, 0.3); color: var(--accent-green); }
 .badge.reddit { background: rgba(255, 69, 0, 0.12); border-color: rgba(255, 69, 0, 0.3); color: #ff7847; }
+.badge.blog { background: rgba(188, 140, 255, 0.12); border-color: rgba(188, 140, 255, 0.3); color: var(--accent-purple); }
 
 ul.bullet-list { padding-left: 22px; }
 ul.bullet-list li { margin: 6px 0; }
@@ -224,67 +225,6 @@ footer.briefing-foot {
   color: var(--fg-dim);
   font-size: 12px;
 }
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  margin-bottom: 18px;
-}
-.stat {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 14px 16px;
-}
-.stat .label {
-  font-size: 11px;
-  color: var(--fg-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-.stat .value {
-  font-size: 22px;
-  font-weight: 700;
-  margin-top: 4px;
-}
-.stat .sub-value {
-  font-size: 11px;
-  color: var(--fg-muted);
-  margin-top: 2px;
-}
-
-.version-pill {
-  display: inline-block;
-  padding: 3px 10px;
-  background: rgba(63, 185, 80, 0.12);
-  border: 1px solid rgba(63, 185, 80, 0.3);
-  color: var(--accent-green);
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
-  font-family: 'JetBrains Mono', 'Cascadia Code', Consolas, monospace;
-}
-
-.section-nav {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
-}
-.section-nav a {
-  padding: 6px 12px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  font-size: 12px;
-  color: var(--fg);
-  text-decoration: none;
-}
-.section-nav a:hover {
-  border-color: var(--accent-blue);
-  color: var(--accent-blue);
-}
 </style>
 </head><body>
 <div class="container">
@@ -297,63 +237,64 @@ footer.briefing-foot {
   <div class="tldr">
     <strong>📌 오늘 바로 접목할 것</strong>
     <ul>
-      <li><strong>claude-mem 메모리 레이어:</strong> 헤드리스 이상치 탐지 배치에 <code>npx claude-mem install</code> 하나로 세션 간 anomaly 패턴 자동 주입 → 반복 컨텍스트 재설명 제거</li>
-      <li><strong>Secretary-Dispatcher-Worker 3단계 분리:</strong> Slack 브리핑 봇에 claude-org-ja 패턴 적용 — Secretary(결과 전달), Dispatcher(Snowflake 쿼리 분배), Worker(개별 분석) 역할 격리로 context 오염 방지</li>
-      <li><strong>RTK 토큰 프록시 즉시 시도:</strong> Claude Code 배치 실행 시 <code>rtk git status</code> / <code>rtk python test.py</code>로 교체 → 커맨드 output 60-90% 압축, 배치 LLM 비용 절감</li>
+      <li><strong>Dynamic Workflows <code>/workflows</code> 명령</strong>: 이상치 탐지 배치를 병렬 subagent로 분산 — "테이블별 통계 검증 에이전트 N개 동시 실행" JS 오케스트레이션 스크립트를 Claude가 자동 생성, 메인 컨텍스트 창 보존</li>
+      <li><strong>Snowflake MCP 연동</strong>: <code>npx @anthropic-ai/mcp-server-snowflake</code> 로 직접 연결 → "지난 7일 DAU 코호트 이탈율"을 자연어로 쿼리, Slack 브리핑 자동화 파이프라인에 삽입 가능</li>
+      <li><strong>레이블 없는 5-에이전트 이상치 앙상블</strong>: 유저 매크로 탐지에 지도학습 레이블 없이 3가지 이상치 알고리즘 + 전문화 에이전트로 96.8% 정확도 달성 사례 — 매크로·어뷰저 탐지 파이프라인에 직접 접목 가능</li>
     </ul>
   </div>
 
   <h2>🧑‍💻 남들은 이렇게 쓴다</h2>
   <ul class="bullet-list">
     <li>
-      <a href="https://github.com/thedotmack/claude-mem">thedotmack/claude-mem — Persistent Context Across Sessions</a> · <span class="badge gh">GitHub</span><br>
-      <b>사례:</b> Claude Code 세션 종료 후에도 컨텍스트 소실 없이 이어가는 메모리 플러그인. 세션 중 tool 사용·결과를 자동 캡처·압축하고, 다음 세션 시작 시 관련 과거 작업을 RAG로 주입. 첫 조회 ~50토큰 요약 → 필요 시 ~500토큰 상세 로딩, 10x 토큰 절감.<br>
-      <b>접목:</b> 헤드리스 이상치 탐지 배치에서 "지난 실행의 anomaly 패턴" 재주입 자동화. 매핑봇이 이전 매핑 결정을 기억해 반복 설명 제거. multi-agent 워크플로우에서 워커 세션 간 누적 지식 전달.
+      <a href="https://news.ycombinator.com/item?id=48311705">Dynamic Workflows in Claude Code</a> · <span class="badge hn">HN</span><br>
+      <b>사례:</b> Claude Code가 JS 오케스트레이션 스크립트를 자동 작성해 최대 1,000개 subagent를 병렬 실행. Jarred Sumner는 Bun 코드베이스 75만 줄(Zig→Rust 포팅)을 11일 만에 완료, 기존 테스트 99.8% 통과. subagent 결과가 부모 컨텍스트로 쌓이지 않아 대규모 작업에서 품질 열화 방지.<br>
+      <b>접목:</b> 이상치 탐지 배치에서 게임 테이블별 서브에이전트 할당 — "각 테이블 담당 에이전트가 독립 실행 후 결과만 취합"하는 패턴으로 Snowflake 쿼리 병렬화 및 브리핑 속도 단축.
     </li>
     <li>
-      <a href="https://github.com/suisya-systems/claude-org-ja">suisya-systems/claude-org-ja — 일본어 퍼스트 멀티에이전트 운영 프레임워크</a> · <span class="badge gh">GitHub</span><br>
-      <b>사례:</b> Claude Code 하나로 다수 Worker 인스턴스에 작업 위임. Secretary(사용자 창구·태스크 분해) → Dispatcher(Worker 초기화·배정) → Worker(격리 실행) → Curator(누적 학습 정리) 4역할 경계 명확화. 인간은 Secretary에게만 자연어로 지시하고 에이전트가 운영 복잡성 처리.<br>
-      <b>접목:</b> Slack 브리핑 시스템 리팩토링에 직접 적용. Secretary가 "오늘 게임 KPI 요약" 수신, Dispatcher가 DAU·매출·온체인 Snowflake 쿼리를 각 Worker에 병렬 배정, Curator가 반복 분석 패턴을 재사용 스킬로 누적.
+      <a href="https://medium.com/codex/audit-grade-fraud-detection-pipeline-with-claude-code-aded56151b9d">Audit-Grade Fraud Detection Pipeline With Claude Code</a> · <span class="badge blog">Medium</span><br>
+      <b>사례:</b> 5개 전문화 에이전트 + 3가지 이상치 탐지 알고리즘 조합으로 레이블 없이 96.8% 정확도 달성. raw CSV → 최종 분석 리포트까지 완전 자동화. 훈련 중 사기 레이블 미공개라는 실전 조건에서 지도학습과 동등 성능.<br>
+      <b>접목:</b> 게임 유저 매크로/어뷰저 탐지에 직접 적용 가능. 레이블 없는 상태에서 행동 패턴 이상치(속도·반복성·시간대 패턴)를 앙상블로 검출, 현재 규칙 기반 탐지보다 미탐 감소 기대.
     </li>
     <li>
-      <a href="https://github.com/shanraisshan/claude-code-best-practice">shanraisshan/claude-code-best-practice — agentic engineering 실전 가이드</a> · <span class="badge gh">GitHub</span><br>
-      <b>사례:</b> Claude Code 헤드리스 운영 실전 가이드. Context 40% 이하 유지, <code>/compact</code> + 힌트 사용, 서브에이전트로 tool output 격리(부모 세션 누적 방지), CLAUDE.md 200줄 이내 + <code>.claude/rules/</code> YAML 조건부 로딩, 실패 시 <code>/rewind</code> 롤백.<br>
-      <b>접목:</b> 배치 자동화에서 context rot 방지 핵심. 이상치 탐지 에이전트 장기 실행 시 품질 저하를 context 40% 룰 + 서브에이전트 격리로 해결. CLAUDE.md에 Snowflake 스키마·분석 관례 압축 문서화.
+      <a href="https://medium.com/medialesson/claude-code-multi-agent-tmux-setup-7361b71ff5c4">Claude Code Multi-Agent tmux Setup</a> · <span class="badge blog">Medium</span><br>
+      <b>사례:</b> tmux 인접 pane에 역할별 Claude Code 세션 배치(오케스트레이터 + 워커 다수). bash heartbeat가 COLLECT-EVALUATE-ACT-LOG 4단계 사이클로 세션 간 조율. 각 워커가 독립 1M 컨텍스트·훅·MCP 접근을 가지며 코드베이스 레이어별로 분담.<br>
+      <b>접목:</b> 헤드리스 배치 자동화 아키텍처 직접 적용 — 브리핑봇/이상치봇/매핑봇을 각 pane에 분리, 오케스트레이터가 조율하는 구조로 병목 해소 및 실패 격리.
     </li>
     <li>
-      <a href="https://github.com/88plug/scientific-method">88plug/scientific-method — 반박 우선 가설 검증 워크플로우</a> · <span class="badge gh">GitHub</span><br>
-      <b>사례:</b> Claude Code에 과학적 방법론 주입. 가설 → 예측 → 실험 → REFUTE(반박 공격) → 평결 → 레저 6단계. <code>EXPERIMENTS.md</code>에 모든 판정 영속화해 "한번 기각된 아이디어 재검토" 방지. <code>/scientific-method:investigate &lt;문제&gt;</code> 명령으로 실행.<br>
-      <b>접목:</b> 매크로 탐지 알고리즘 신규 개발 시 적용. "이 패턴이 정말 매크로인가"를 REFUTE 단계에서 adversarial하게 공격한 후에만 레이블링. 이상치 임계값 튜닝에서 과거 실험 레저로 중복 탐색 방지.
+      <a href="https://thepipeandtheline.substack.com/p/intro-claude-code-for-data-engineers">Intro To Claude Code For Data Engineers (Skills, MCPs &amp; Hooks)</a> · <span class="badge blog">Substack</span><br>
+      <b>사례:</b> MCP 서버로 Snowflake에 직접 연결해 자연어로 SQL 실행·스키마 탐색·long-running 쿼리 모니터링. Altimate Skills로 dbt + Snowflake 워크플로우 인코딩 → 데이터 엔지니어링 작업 효율 향상.<br>
+      <b>접목:</b> 매일 Snowflake 쿼리 기반 브리핑 자동화에 MCP 연동. "지난주 대비 유저군집 변화율?" 질문을 Slack 트리거→Claude Code→Snowflake MCP→응답 파이프라인으로 구성.
     </li>
     <li>
-      <a href="https://github.com/winchxyz/idea-to-build">winchxyz/idea-to-build — 멀티에이전트 브레인스토밍 + 빌드 핸드오프</a> · <span class="badge gh">GitHub</span><br>
-      <b>사례:</b> 아이디어 → 실행 계획 6단계 자동화. Critique 단계 격리가 핵심: 비평 에이전트가 forced premortem(실패 모드 열거), steelman(최강 반론), inversion(가정 뒤집기)을 독립 수행해 동의 편향 차단. <code>/scaffold</code>로 Claude Code 실행 디렉토리 자동 생성, <code>/recheck</code>로 실제 결과 재평가.<br>
-      <b>접목:</b> 다이나믹 프라이싱 신규 모델 설계 시 활용. "이 가격 모델이 왜 실패하는가"를 먼저 공격한 후 구현 착수. spec 대신 빠른 프로토타입 20-30개 반복 → 게임 데이터 분석 PoC 사이클 가속.
+      <a href="https://github.com/thedotmack/claude-mem">claude-mem: Persistent Context Across Sessions</a> · <span class="badge gh">GitHub</span><br>
+      <b>사례:</b> SessionStart/PostToolUse/Stop 등 5개 훅으로 에이전트 행동 자동 캡처 → AI 압축 → SQLite FTS 저장 → 다음 세션에 관련 컨텍스트 자동 주입. v13.1.0에서 Postgres 스토리지 + BullMQ 큐 + Docker Compose 수평 확장 지원 추가.<br>
+      <b>접목:</b> 매일 실행하는 이상치 탐지 배치에서 "어제 어떤 이상 패턴이 감지됐나"를 다음 실행에 자동 인젝션 — 드리프트 누적 감지 및 반복 컨텍스트 재설명 제거.
     </li>
   </ul>
 
   <h2>🛠 바로 쓸 도구/패턴</h2>
   <ul class="bullet-list">
-    <li><a href="https://github.com/thedotmack/claude-mem">thedotmack/claude-mem</a> — 세션 간 메모리 영속화 플러그인 / 헤드리스 배치에서 이전 실행 anomaly 패턴 자동 주입, 10x 토큰 절감</li>
-    <li><a href="https://github.com/rtk-ai/rtk">rtk-ai/rtk</a> — Rust 기반 CLI 프록시, LLM 토큰 60-90% 절감 / Claude Code 배치 명령 output 필터링으로 비용 절감 (단일 바이너리, 의존성 없음)</li>
-    <li><a href="https://github.com/suisya-systems/claude-org-ja">suisya-systems/claude-org-ja</a> — 4역할 멀티에이전트 프레임워크 (Secretary/Dispatcher/Worker/Curator) / Slack 브리핑 시스템 역할 분리 템플릿으로 직접 활용</li>
-    <li><a href="https://github.com/88plug/scientific-method">88plug/scientific-method</a> — 반박 우선 가설 검증 Claude Code 스킬 / 매크로·이상치 탐지 알고리즘 검증 프로세스 적용</li>
-    <li><a href="https://github.com/affaan-m/ECC">affaan-m/ECC</a> — 에이전트 하네스 최적화 시스템 (Skills·Instincts·Memory·Security·Hooks) / 분석 도메인별 재사용 스킬 라이브러리 구축 템플릿</li>
+    <li><a href="https://github.com/thedotmack/claude-mem">thedotmack/claude-mem</a> — 세션 간 AI 압축 메모리 / 헤드리스 배치에서 과거 이상치 패턴 자동 주입, 반복 컨텍스트 제거</li>
+    <li><a href="https://github.com/affaan-m/ECC">affaan-m/ECC</a> — Skills·Instincts·Memory·Security 통합 에이전트 하네스 / multi-agent 워크플로우 구조화 및 분석 도메인별 스킬 라이브러리 구축 참고</li>
+    <li><a href="https://github.com/shareAI-lab/learn-claude-code">shareAI-lab/learn-claude-code</a> — bash만으로 Claude Code 에이전트 하네스 0→1 구현 예제 / 내부 헤드리스 배치 자동화 구조 이해에 유용</li>
+    <li><a href="https://composio.dev/toolkits/snowflake/framework/claude-code">composio/snowflake-mcp</a> — Snowflake MCP 연동 가이드 / Snowflake 직접 쿼리 → 브리핑 자동화 파이프라인 구성 시작점</li>
+    <li><a href="https://github.com/suisya-systems/claude-org-ja">suisya-systems/claude-org-ja</a> — Secretary/Dispatcher/Worker/Curator 4역할 멀티에이전트 프레임워크 / Slack 브리핑 시스템 역할 분리 템플릿으로 활용</li>
   </ul>
 
   <h2>📰 참고: 주요 릴리스</h2>
   <ul class="bullet-list">
-    <li><a href="https://github.com/NickScherbakov/ClaudeCodeManual">NickScherbakov/ClaudeCodeManual</a> — 15챕터 멀티에이전트 오케스트레이션 강좌 공개. Workflow tool, pipeline, adversarial verify, budget loop 실습 포함. 헤드리스 multi-agent 운영 패턴 학습용.</li>
-    <li><a href="https://github.com/affaan-m/ECC">affaan-m/ECC</a> — 에이전트 하네스 AgentShield 보안 스캔 추가 (MCP 서버·hook injection 취약점 탐지). 프로덕션 배치 에이전트 보안 점검에 활용.</li>
+    <li><a href="https://www.anthropic.com/news/claude-fable-5-mythos-5">Claude Fable 5 &amp; Mythos 5 출시</a> — 소프트웨어 엔지니어링·과학 연구 성능 대폭 향상; 미국 수출통제 지침으로 해외 국적자 접근 일시 제한 조치 발효 (워크플로우 운영 영향 확인 필요)</li>
+    <li><a href="https://claude.com/blog/introducing-dynamic-workflows-in-claude-code">Dynamic Workflows 정식 출시</a> — <code>/workflows</code> 명령 또는 ultracode 설정으로 JS 오케스트레이션 스크립트 자동 생성, 최대 1,000개 subagent 병렬 실행 지원</li>
+    <li><a href="https://www.anthropic.com/news">Anthropic 서울 오피스 오픈</a> — 2026-06-17 한국 AI 생태계 파트너십 발표; 국내 기업 Claude API 접근성 개선 기대</li>
   </ul>
 
   <div class="meta-block">
-    스캔 20+ · 포함 7 · 소요 약 8분<br>
-    소스: HN ❌(차단) / GitHub ✅ / Reddit ❌(차단) / Anthropic ❌(차단) / Simon ❌(차단)<br>
-    비고: 네트워크 정책으로 hn.algolia.com, reddit.com, simonwillison.net, anthropic.com 직접 접근 차단. GitHub API + WebFetch(GitHub 상세 페이지)로 대체 수집.
+    스캔 25+ · 포함 5사례+5도구+3릴리스 · 소요 약 11분<br>
+    소스: HN ⚠️(API 403 → WebSearch 대체) / GitHub ✅(API) / Reddit ❌(차단) / Anthropic ✅(WebSearch) / Simon ⚠️(atom 403 → WebSearch 대체)<br>
+    비고: HN Algolia API·Reddit·simonwillison.net 직접 fetch 차단. WebSearch로 대체 수집. GitHub 스타 수 표기 생략(수치 신뢰도 불확실).
   </div>
 </section>
 
-<footer class="briefing-foot">생성: 2026-06-21T08:10:00+09:00 · routine: claude-code-daily-digest (usage)</footer>
+<footer class="briefing-foot">생성: 2026-06-21T10:30:00+09:00 · routine: claude-code-daily-digest (usage)</footer>
 </div>
 </body></html>
