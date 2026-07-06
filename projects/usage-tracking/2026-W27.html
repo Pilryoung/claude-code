@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<title>Claude Weekly Usage — 2026-W27 (2026-06-29 ~ 2026-07-03)</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #0f1419; color: #e6edf3; margin: 0; padding: 32px; }
+h1 { margin: 0 0 6px; font-size: 26px; }
+.sub { color: #8b949e; margin-bottom: 24px; font-size: 14px; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+.stat { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; }
+.stat .label { font-size: 11px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat .value { font-size: 26px; font-weight: 600; margin-top: 4px; }
+.stat .sub-value { font-size: 12px; color: #8b949e; margin-top: 2px; }
+.gauge-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; margin-bottom: 16px; text-align: center; }
+.gauge-pct { font-size: 48px; font-weight: 700; color: #3fb950; }
+.gauge-label { font-size: 16px; color: #3fb950; margin-top: 4px; }
+.gauge-sub { color: #8b949e; font-size: 13px; margin-top: 8px; }
+.grid-2 { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; margin-bottom: 14px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 18px; }
+.card h2 { margin: 0 0 12px; font-size: 15px; font-weight: 600; }
+.footer { color: #6e7681; font-size: 12px; margin-top: 24px; text-align: center; }
+canvas { max-height: 280px; }
+</style></head><body>
+
+<h1>Claude Weekly Usage — 2026-W27 (2026-06-29 ~ 2026-07-03)</h1>
+<div class="sub">ISO 주 기준 · codeburn 로컬 데이터 · 생성 2026-07-06 00:00:05 UTC · 금액은 API 환산 (실제 Pro 구독 $20/월 flat)</div>
+
+<div class="stats">
+  <div class="stat"><div class="label">이번 주</div><div class="value">$440.75</div><div class="sub-value">1177 calls · 21 sessions · 5 days</div></div>
+  <div class="stat"><div class="label">전주</div><div class="value">$327.86</div><div class="sub-value">831 calls</div></div>
+  <div class="stat"><div class="label">4주 평균</div><div class="value">$394.56</div><div class="sub-value">최근 3 주 평균</div></div>
+  <div class="stat"><div class="label">30일 합계</div><div class="value">$1624.42</div><div class="sub-value">5246 calls</div></div>
+</div>
+
+<div class="gauge-card">
+  <div class="label" style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">평소 대비 (4주 평균 기준)</div>
+  <div class="gauge-pct">112%</div>
+  <div class="gauge-label">평소 수준</div>
+  <div class="gauge-sub">Pro 주간 절대 한도는 claude.ai/settings 에서 확인 — 이 지표는 본인의 평소 패턴 대비 상대 비교</div>
+</div>
+
+<div class="grid-2">
+  <div class="card"><h2>주차별 비용 (최근 4 주)</h2><canvas id="weekChart"></canvas></div>
+  <div class="card"><h2>모델별 지출 (최근 30일)</h2><canvas id="modelChart"></canvas></div>
+</div>
+
+<div class="grid-3">
+  <div class="card"><h2>Activity 분포 (30일)</h2><canvas id="activityChart"></canvas></div>
+  <div class="card"><h2>주차별 API Calls</h2><canvas id="callsChart"></canvas></div>
+  <div class="card"><h2>주차별 세션 수</h2><canvas id="sessionChart"></canvas></div>
+</div>
+
+<div class="footer">$30 초과: 빨강 · $15-30: 주황 · 그 외: 파랑</div>
+
+<script>
+const weeks = [{"key":"2026-W24","label":"2026-06-08","cost":606.21,"calls":2377,"sessions":77},{"key":"2026-W25","label":"2026-06-16","cost":249.62,"calls":861,"sessions":19},{"key":"2026-W26","label":"2026-06-22","cost":327.86,"calls":831,"sessions":18},{"key":"2026-W27","label":"2026-06-29","cost":440.75,"calls":1177,"sessions":21}];
+const models = [{"Period":"30 Days","Model":"Opus 4.8","Cost (USD)":1226.21,"Saved (USD)":0,"Share (%)":75.49,"API Calls":4289,"Edit Turns":386,"One-shot Rate (%)":92.5,"Retries/Edit":0.1,"Cost/Edit (USD)":1.84,"Input Tokens":1234395,"Output Tokens":7003203,"Cache Read Tokens":1216816504,"Cache Write Tokens":45187406},{"Period":"30 Days","Model":"Fable 5","Cost (USD)":389.72,"Saved (USD)":0,"Share (%)":23.99,"API Calls":807,"Edit Turns":80,"One-shot Rate (%)":96.3,"Retries/Edit":0,"Cost/Edit (USD)":3.14,"Input Tokens":303407,"Output Tokens":1139363,"Cache Read Tokens":179583638,"Cache Write Tokens":7948427},{"Period":"30 Days","Model":"Sonnet 5","Cost (USD)":5.96,"Saved (USD)":0,"Share (%)":0.37,"API Calls":52,"Edit Turns":4,"One-shot Rate (%)":100,"Retries/Edit":0,"Cost/Edit (USD)":0.6,"Input Tokens":15035,"Output Tokens":74149,"Cache Read Tokens":8260406,"Cache Write Tokens":884281},{"Period":"30 Days","Model":"Sonnet 4.6","Cost (USD)":1.73,"Saved (USD)":0,"Share (%)":0.11,"API Calls":31,"Edit Turns":1,"One-shot Rate (%)":100,"Retries/Edit":0,"Cost/Edit (USD)":0.13,"Input Tokens":572,"Output Tokens":13679,"Cache Read Tokens":1748418,"Cache Write Tokens":166494},{"Period":"30 Days","Model":"Haiku 4.5","Cost (USD)":0.8,"Saved (USD)":0,"Share (%)":0.05,"API Calls":51,"Edit Turns":0,"One-shot Rate (%)":"","Retries/Edit":"","Cost/Edit (USD)":"","Input Tokens":3271,"Output Tokens":21434,"Cache Read Tokens":2209747,"Cache Write Tokens":373357}];
+const activities = [{"Period":"30 Days","Activity":"Coding","Cost (USD)":1103.94,"Share (%)":67.96,"Turns":616},{"Period":"30 Days","Activity":"Exploration","Cost (USD)":191.05,"Share (%)":11.76,"Turns":177},{"Period":"30 Days","Activity":"Conversation","Cost (USD)":171.88,"Share (%)":10.58,"Turns":328},{"Period":"30 Days","Activity":"General","Cost (USD)":44.09,"Share (%)":2.71,"Turns":56},{"Period":"30 Days","Activity":"Feature Dev","Cost (USD)":37.26,"Share (%)":2.29,"Turns":35},{"Period":"30 Days","Activity":"Debugging","Cost (USD)":31.5,"Share (%)":1.94,"Turns":23},{"Period":"30 Days","Activity":"Delegation","Cost (USD)":30.05,"Share (%)":1.85,"Turns":16},{"Period":"30 Days","Activity":"Refactoring","Cost (USD)":13.17,"Share (%)":0.81,"Turns":2},{"Period":"30 Days","Activity":"Git Ops","Cost (USD)":1.46,"Share (%)":0.09,"Turns":1}];
+
+Chart.defaults.color = '#8b949e';
+Chart.defaults.borderColor = '#30363d';
+
+new Chart(document.getElementById('weekChart'), {
+  type: 'bar',
+  data: {
+    labels: weeks.map(w => w.label),
+    datasets: [{
+      label: 'Cost (USD)',
+      data: weeks.map(w => Number(w.cost.toFixed(2))),
+      backgroundColor: weeks.map(w => w.cost > 30 ? '#f85149' : w.cost > 15 ? '#d29922' : '#58a6ff'),
+      borderRadius: 4,
+    }]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { ticks: { callback: v => '$' + v } } } }
+});
+
+new Chart(document.getElementById('modelChart'), {
+  type: 'doughnut',
+  data: { labels: models.map(m => m.Model), datasets: [{ data: models.map(m => m['Cost (USD)']), backgroundColor: ['#bc8cff','#58a6ff','#3fb950','#d29922','#f85149'] }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
+});
+
+new Chart(document.getElementById('activityChart'), {
+  type: 'bar',
+  data: { labels: activities.map(a => a.Activity), datasets: [{ label: 'Cost (USD)', data: activities.map(a => a['Cost (USD)']), backgroundColor: '#58a6ff', borderRadius: 4 }] },
+  options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { callback: v => '$' + v } } } }
+});
+
+new Chart(document.getElementById('callsChart'), {
+  type: 'line',
+  data: { labels: weeks.map(w => w.label), datasets: [{ label: 'Calls', data: weeks.map(w => w.calls), borderColor: '#3fb950', backgroundColor: 'rgba(63,185,80,0.1)', fill: true, tension: 0.3 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+});
+
+new Chart(document.getElementById('sessionChart'), {
+  type: 'line',
+  data: { labels: weeks.map(w => w.label), datasets: [{ label: 'Sessions', data: weeks.map(w => w.sessions), borderColor: '#bc8cff', backgroundColor: 'rgba(188,140,255,0.1)', fill: true, tension: 0.3 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+});
+</script>
+</body></html>
