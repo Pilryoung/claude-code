@@ -295,16 +295,25 @@ footer.briefing-foot {
 <section id="briefing-claude-changelog" data-source="claude-changelog">
   <h2>🔄 Claude Code 신규 패치</h2>
   <div class="card">
-    <h3>v2.1.203 <span style="color:var(--fg-muted);font-weight:normal;font-size:13px;">released 2026-07-07</span></h3>
+    <h3>v2.1.205 <span style="color:var(--fg-muted);font-weight:normal;font-size:13px;">released 2026-07-08</span></h3>
     <ul class="bullet-list">
-      <li>로그인 만료 임박 경고 추가 — 백그라운드 세션이 끊기기 전 재인증 시점을 알림; 수동 권한 모드 활성화 시 풋터에 회색 ⏸ 배지 표시로 현재 모드 항상 가시화</li>
-      <li>macOS에서 백그라운드 에이전트 세션 열기·전환 시 15~20초 지연 수정 (v2.1.196 회귀, 잘못된 저메모리 감지가 원인)</li>
-      <li>데몬 세션 토큰 만료 시 백그라운드 세션이 연결·응답·중지 모두 불가한 영구 고착 상태로 빠지던 문제 자동 복구로 해결</li>
-      <li>컨텍스트 사용 표시기가 매 턴마다 전체 트랜스크립트를 재분석하던 메모리·CPU 회귀 수정; <code>TaskStop</code>/<code>TaskOutput</code>이 다른 에이전트가 생성한 백그라운드 에이전트를 찾지 못하던 문제도 함께 수정</li>
-      <li>바이너리 크기 약 7 MB·시작 메모리 약 7 MB 절감 — 대형 번들 의존성을 인라인 대신 지연 로드 방식으로 전환</li>
+      <li>자동 업데이트 바이너리 다운로드를 메모리 버퍼링 대신 디스크 스트리밍으로 전환 — 최대 400MB 피크 메모리 절감</li>
+      <li><code>/doctor</code> 명령을 설정 진단 및 자동 수정 도구로 전면 개선; <code>/checkup</code>을 별칭으로 추가</li>
+      <li>자동 모드 보안 강화: 세션 트랜스크립트 파일 변조 차단 규칙 추가, 해석 불가 변수에 <code>rm -rf</code> 실행 전 사용자 확인 요청</li>
+      <li>에이전트 뷰 개선: 행마다 컬러 상태 단어·요약 헤드라인 표시, PR 편집·머지 세션에서 <code>claude agents</code> 내 PR 링크 지원</li>
+      <li><code>--json-schema</code> 스키마 오류 시 구조화되지 않은 출력 발생 버그 및 <code>format</code> 키워드 거부 문제 수정</li>
+      <li>백그라운드 에이전트 상태 버그 다수 수정: 재개 후 오류 상태 지속, 웹/모바일 Remote Control 패널 지연 상태 표시 등</li>
+      <li>Windows: 워크트리 외부 파일 삭제 버그 및 실행 디렉토리 삭제 시 크래시 수정</li>
+      <li>Cowork VM 모드에서 CLI 2.1.203+ 업그레이드 후 로컬 에이전트 세션이 "Not logged in" 오류로 시작 실패하던 문제 수정</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>v2.1.204 <span style="color:var(--fg-muted);font-weight:normal;font-size:13px;">released 2026-07-08</span></h3>
+    <ul class="bullet-list">
+      <li>헤드리스 세션의 <code>SessionStart</code> 훅에서 훅 이벤트가 스트리밍되지 않아 원격 워커가 훅 실행 중 유휴 회수되던 문제 수정</li>
     </ul>
   </div>
 </section>
-<footer class="briefing-foot">생성: 2026-07-07T23:11:23Z · routine: claude-code-changelog-daily</footer>
+<footer class="briefing-foot">생성: 2026-07-08T23:10:21Z · routine: claude-code-changelog-daily</footer>
 </div>
 </body></html>
