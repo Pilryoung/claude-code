@@ -225,6 +225,7 @@ footer.briefing-foot {
   font-size: 12px;
 }
 
+/* ───── usage section (briefing-usage) ───── */
 .stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -295,9 +296,24 @@ footer.briefing-foot {
 <section id="briefing-claude-changelog" data-source="claude-changelog">
   <h2>🔄 Claude Code 신규 패치</h2>
   <div class="card">
-    <p style="color:var(--fg-muted);">지난 24시간 내 새 패치 없음.</p>
+    <h3>v2.1.209 <span style="color:var(--fg-muted);font-weight:normal;font-size:13px;">released 2026-07-14</span></h3>
+    <ul class="bullet-list">
+      <li><code>claude agents</code> 백그라운드 세션에서 <code>/model</code> 및 기타 다이얼로그가 차단되던 버그 수정 (과도한 가드 롤백)</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>v2.1.208 <span style="color:var(--fg-muted);font-weight:normal;font-size:13px;">released 2026-07-14</span></h3>
+    <ul class="bullet-list">
+      <li>스크린 리더 모드 신규 추가: <code>--ax-screen-reader</code> 플래그, <code>CLAUDE_AX_SCREEN_READER=1</code> 환경변수, 또는 <code>"axScreenReader": true</code> 설정으로 활성화</li>
+      <li>vim 모드 <code>vimInsertModeRemaps</code> 설정 추가: <code>jj</code> → Escape 등 두 키 입력-모드 시퀀스 매핑 지원</li>
+      <li>다수 메모리 누수 수정: MCP 서버 stderr 최대 64MB 누적·LSP 문서 무한 유지·파일 편집 캐시 무한 증가 등 장기 세션 안정성 대폭 개선</li>
+      <li>세션 트랜스크립트 크기 최대 79배 감소, 파일 기록 체크포인트 디스크 사용량 제한으로 디스크·메모리 효율 개선</li>
+      <li>MCP 툴 다수 사용 시 툴 풀 어셈블리 캐싱으로 최대 7배 빠른 툴 처리 성능</li>
+      <li>자동 업데이트 후 컨텍스트 창이 200k로 일시 초기화되어 "100% 컨텍스트 사용" 경고가 잘못 표시되던 버그 수정</li>
+      <li><code>claude -p</code> 파이프 시 대용량 응답 잘림 수정, <code>$(…)</code>/백틱 포함 명령의 위험 작업에 <code>--dangerously-skip-permissions</code> 모드에서도 확인 프롬프트 표시</li>
+    </ul>
   </div>
 </section>
-<footer class="briefing-foot">생성: 2026-07-13T23:10:12Z · routine: claude-code-changelog-daily</footer>
+<footer class="briefing-foot">생성: 2026-07-14T23:11:02Z · routine: claude-code-changelog-daily</footer>
 </div>
 </body></html>
