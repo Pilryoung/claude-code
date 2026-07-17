@@ -347,12 +347,44 @@ footer.briefing-foot {
 <h1>Claude Code 신규 패치</h1>
 <div class="sub">2026-07-17 · 지난 24시간</div>
 </header>
+
 <section id="briefing-claude-changelog" data-source="claude-changelog">
   <h2>🔄 Claude Code 신규 패치</h2>
+
   <div class="card">
-    <p style="color:var(--fg-muted);">지난 24시간 내 새 패치 없음.</p>
+    <h3>v2.1.212 <span style="color:var(--fg-muted);font-weight:normal;font-size:13px;">released 2026-07-17</span></h3>
+
+    <h4 style="color:var(--accent-green);font-size:13px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:.5px;">신기능</h4>
+    <ul class="bullet-list">
+      <li><code>/fork</code>가 이제 대화를 새 백그라운드 세션으로 복사하고 기존 작업을 계속 진행 가능; 이전의 인세션 서브에이전트는 <code>/subtask</code>로 분리</li>
+      <li><code>claude auto-mode reset</code> 명령 추가 — 기본 auto-mode 설정을 확인 프롬프트와 함께 복원 (<code>--yes</code>로 생략 가능)</li>
+      <li>세션당 WebSearch 호출 횟수 제한 추가 (기본 200회, <code>CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION</code>으로 조정) — 무한 검색 루프 방지</li>
+      <li>세션당 서브에이전트 스폰 횟수 제한 추가 (기본 200회, <code>CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION</code>으로 조정, <code>/clear</code>로 초기화) — 무한 위임 루프 방지</li>
+      <li>2분 이상 실행되는 MCP 도구 호출이 자동으로 백그라운드로 이동 (<code>CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS</code>으로 임계값 조정 가능)</li>
+      <li>에이전트 뷰에서 <code>/resume</code> 입력 시 삭제된 과거 세션을 포함한 선택 기능 제공 — 선택한 세션을 백그라운드 세션으로 재개</li>
+    </ul>
+
+    <h4 style="color:var(--accent-red);font-size:13px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:.5px;">버그픽스</h4>
+    <ul class="bullet-list">
+      <li>플랜 모드에서 <code>touch</code>, <code>rm</code> 등 파일 수정 Bash 명령이 권한 프롬프트 또는 SDK <code>canUseTool</code> 콜백 없이 자동 실행되던 문제 수정</li>
+      <li>worktree 생성 시 <code>.claude/worktrees</code> 심볼릭 링크를 따라 저장소 외부에 파일이 생성될 수 있던 보안 문제 수정</li>
+      <li>대량 이미지 포함 대화에서 "Request too large" 오류가 잘못 표시되던 문제 및 에러 메시지 개선</li>
+      <li>웹 검색/페치가 API 과부하 시 에러 텍스트를 검색 결과나 페이지 내용으로 반환하던 문제 수정</li>
+      <li>스트리밍 중 도구 실패/완료 시 <code>continue:false</code> 훅의 중단 신호가 무시되던 문제 수정</li>
+      <li>SIGTERM 수신 시 Bash 도구의 프로세스 트리가 고아 상태로 남던 문제 수정 — 이제 클린 종료 후 143 코드로 종료</li>
+      <li>오픈텔레메트리 HTTP 익스포트가 Azure Monitor 등 청크 전송 인코딩을 지원하지 않는 엔드포인트에서 411/400 오류를 반환하던 문제 수정</li>
+    </ul>
+
+    <h4 style="color:var(--accent-blue);font-size:13px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:.5px;">성능 개선</h4>
+    <ul class="bullet-list">
+      <li>웹 검색과 웹 페치 신뢰성 향상 — 529 에러 및 rate-limit 요청에 대해 제한적 백오프로 재시도</li>
+      <li>프롬프트 캐싱 개선 — LLM 게이트웨이 및 커스텀 base URL(Bedrock, Vertex, 1P)에서 mid-conversation 시스템 블록 정상 작동</li>
+      <li><code>SendMessage</code> 본문이 재생 히스토리에 중복되지 않도록 개선하여 inter-agent 메시징 토큰 사용량 감소</li>
+      <li>백그라운드 에이전트 콜드 어태치 시 세션 부팅을 기다리는 빈 화면 대신 즉시 트랜스크립트를 표시</li>
+    </ul>
   </div>
 </section>
-<footer class="briefing-foot">생성: 2026-07-16T23:09:54Z · routine: claude-code-changelog-daily</footer>
+
+<footer class="briefing-foot">생성: 2026-07-17T23:10:20Z · routine: claude-code-changelog-daily</footer>
 </div>
 </body></html>
